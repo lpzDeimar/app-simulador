@@ -1,13 +1,14 @@
-import * as React from "react";
-import { Theme, useTheme } from "@mui/material/styles";
+import { entidadFusionada } from "@/api/enfemedades";
+import { Error } from "@/models/InfoAlert";
+import { Alert } from "@mui/material";
 import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
+import Chip from "@mui/material/Chip";
+import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Chip from "@mui/material/Chip";
-import { entidadFusionada } from "@/api/enfemedades";
+import { Theme, useTheme } from "@mui/material/styles";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -33,10 +34,12 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
 type MultipleSelectChipProps = {
   estado: string[];
   funcHandle: (event: SelectChangeEvent<string[]>) => void;
+  alert: string[];
 };
 export default function MultipleSelectChip({
   estado,
   funcHandle,
+  alert,
 }: MultipleSelectChipProps) {
   const theme = useTheme();
 
@@ -70,6 +73,17 @@ export default function MultipleSelectChip({
           </MenuItem>
         ))}
       </Select>
+      <Alert
+        severity={
+          alert[0] === Error.PERSONNAME
+            ? "error"
+            : alert[0] === Error.PERSONNAMEVACIO
+            ? "error"
+            : "success"
+        }
+      >
+        {alert[0]}
+      </Alert>
     </FormControl>
   );
 }

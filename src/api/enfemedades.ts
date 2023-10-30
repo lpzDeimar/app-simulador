@@ -6,7 +6,6 @@ const descripcion = [
   "Pérdida de 1-3 centímetros no deformante",
   "Pérdida de 1-3 centímetros deformante",
   "Pérdida de 3 a 10 centímetros deformante",
-  "Pérdida de 3 a 10 centímetros deformante",
   "Pérdida de más de 10 centímetros no deformante",
   "Pérdida de más de 10 centímetros deformante",
 ];

@@ -1,12 +1,14 @@
 import React from "react";
 import "./SelectInput.scss";
 import {
+  Alert,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
 } from "@mui/material";
+import { Contact } from "@/models/InfoAlert";
 
 type PropsInput = {
   arreglo: string[];
@@ -15,6 +17,8 @@ type PropsInput = {
   label: string;
   estado: string;
   reden?: (value: string) => React.ReactNode | undefined;
+  isTop?: boolean;
+  alert: string;
 };
 
 const SelectInput: React.FC<PropsInput> = ({
@@ -24,10 +28,12 @@ const SelectInput: React.FC<PropsInput> = ({
   titulo,
   estado,
   reden,
+  isTop = true,
+  alert,
 }) => {
   return (
     <FormControl className="rangee">
-      <h2>{titulo}</h2>
+      <h2 className={isTop ? "top25" : "top35"}>{titulo}</h2>
       <InputLabel className="indez" id="demo-simple">
         {label}
       </InputLabel>
@@ -47,6 +53,17 @@ const SelectInput: React.FC<PropsInput> = ({
           );
         })}
       </Select>
+      <Alert
+        severity={
+          alert === estado
+            ? "success"
+            : alert === Contact.ABOGADO
+            ? "warning"
+            : "error"
+        }
+      >
+        {alert}
+      </Alert>
     </FormControl>
   );
 };
