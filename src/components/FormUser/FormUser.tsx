@@ -33,6 +33,18 @@ const FormUser: React.FC = () => {
     setJuntas(event.target.value as string);
   };
 
+  const [personName, setPersonName] = React.useState<string[]>([]);
+
+  const handleChangeMultiple = (
+    event: SelectChangeEvent<typeof personName>
+  ) => {
+    const {
+      target: { value },
+    } = event;
+
+    setPersonName(typeof value === "string" ? value.split(",") : value);
+  };
+
   return (
     <article className="container">
       <h1>Calculadora</h1>
@@ -66,7 +78,10 @@ const FormUser: React.FC = () => {
           estado={juntas}
           titulo="Cuántas juntas o tribunales médicos le han practicado anteriormente*"
         />
-        <MultipleSelectChip />
+        <MultipleSelectChip
+          estado={personName}
+          funcHandle={handleChangeMultiple}
+        />
       </Box>
     </article>
   );

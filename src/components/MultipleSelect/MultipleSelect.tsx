@@ -30,18 +30,15 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
         : theme.typography.fontWeightMedium,
   };
 }
-
-export default function MultipleSelectChip() {
+type MultipleSelectChipProps = {
+  estado: string[];
+  funcHandle: (event: SelectChangeEvent<string[]>) => void;
+};
+export default function MultipleSelectChip({
+  estado,
+  funcHandle,
+}: MultipleSelectChipProps) {
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState<string[]>([]);
-
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-    const {
-      target: { value },
-    } = event;
-
-    setPersonName(typeof value === "string" ? value.split(",") : value);
-  };
 
   return (
     <FormControl className="disclemer multiple__select">
@@ -51,8 +48,8 @@ export default function MultipleSelectChip() {
         labelId="demo-multiple-chip-label"
         id="demo-multiple-chip"
         multiple
-        value={personName}
-        onChange={handleChange}
+        value={estado}
+        onChange={funcHandle}
         input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
         renderValue={(selected) => (
           <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
@@ -67,7 +64,7 @@ export default function MultipleSelectChip() {
           <MenuItem
             key={name[0]}
             value={name[1].descripcion}
-            style={getStyles(name[1].descripcion, personName, theme)}
+            style={getStyles(name[1].descripcion, estado, theme)}
           >
             {name[1].descripcion}
           </MenuItem>
