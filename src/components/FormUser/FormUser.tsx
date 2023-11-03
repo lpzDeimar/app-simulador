@@ -3,6 +3,7 @@ import {
   edades,
   gradoLesion,
   juntasTribunales,
+  tabla,
 } from "@/api/data";
 import { Error } from "@/models/InfoAlert";
 import { Button, ButtonGroup } from "@mui/material";
@@ -118,6 +119,18 @@ const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
       validatePorcentaje();
     }
     if (juntas === juntasTribunales[1] && age.length > 1 && gradoL.length > 1) {
+      const pocisionTablaEdad = edades.indexOf(age);
+      const tablaPocisionIndicada = tabla[pocisionTablaEdad];
+      if (enfermedad.indiceLesion.length > 2) {
+        const indiceDiscapacidad =
+          gradoL === gradoLesion[0]
+            ? enfermedad.indiceLesion[0] - 1
+            : gradoL === gradoLesion[1]
+            ? enfermedad.indiceLesion[1] - 1
+            : enfermedad.indiceLesion[2] - 1;
+
+        handleFuncTotal(tablaPocisionIndicada[indiceDiscapacidad]);
+      }
     } else {
       validateJuntas();
       validateAge();
