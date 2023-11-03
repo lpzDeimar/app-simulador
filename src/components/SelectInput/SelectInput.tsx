@@ -19,6 +19,8 @@ type PropsInput = {
   reden?: (value: string) => React.ReactNode | undefined;
   isTop?: boolean;
   alert: string;
+  classcss?: string;
+  blur: () => void;
 };
 
 const SelectInput: React.FC<PropsInput> = ({
@@ -30,9 +32,12 @@ const SelectInput: React.FC<PropsInput> = ({
   reden,
   isTop = true,
   alert,
+  classcss,
+  blur,
 }) => {
+  const estilos = `${classcss} rangee`;
   return (
-    <FormControl className="rangee">
+    <FormControl className={estilos}>
       <h2 className={isTop ? "top25" : "top35"}>{titulo}</h2>
       <InputLabel className="indez" id="demo-simple">
         {label}
@@ -44,14 +49,13 @@ const SelectInput: React.FC<PropsInput> = ({
         label={label}
         renderValue={reden}
         onChange={funcionHandle}
+        onBlur={blur}
       >
-        {arreglo.map((e) => {
-          return (
-            <MenuItem key={e} value={e}>
-              {e}
-            </MenuItem>
-          );
-        })}
+        {arreglo.map((e) => (
+          <MenuItem key={e} value={e}>
+            {e}
+          </MenuItem>
+        ))}
       </Select>
       <Alert
         severity={

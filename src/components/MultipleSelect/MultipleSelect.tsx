@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Theme, useTheme } from "@mui/material/styles";
-
+import "@/components/MultipleSelect/MultipleSelect.scss";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -35,16 +35,18 @@ type MultipleSelectChipProps = {
   estado: string[];
   funcHandle: (event: SelectChangeEvent<string[]>) => void;
   alert: string[];
+  blur: () => void;
 };
 export default function MultipleSelectChip({
   estado,
   funcHandle,
   alert,
+  blur,
 }: MultipleSelectChipProps) {
   const theme = useTheme();
 
   return (
-    <FormControl className="disclemer multiple__select">
+    <FormControl className="multiple__select">
       <h2>Seleccione la lesión o enfermedad (máximo 3)*</h2>
       <InputLabel id="demo-multiple-chip-label">máximo 3</InputLabel>
       <Select
@@ -52,6 +54,7 @@ export default function MultipleSelectChip({
         id="demo-multiple-chip"
         multiple
         value={estado}
+        onBlur={() => blur()}
         onChange={funcHandle}
         input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
         renderValue={(selected) => (

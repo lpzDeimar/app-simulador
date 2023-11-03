@@ -5,6 +5,7 @@ export enum Error {
   JUNTAS = "Error debe ingresar la cantidad de juntas/tribunales",
   PERSONNAMEVACIO = "Error debe ingresar la cantidad de lesiones/enfermedades",
   PERSONNAME = "Error no puede elegir mas de 3 lesiones/enfermedades",
+  PORCENTAJE = "Error debe ingresar un porcentaje",
 }
 
 export enum Contact {

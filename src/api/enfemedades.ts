@@ -12,7 +12,6 @@ const descripcion = [
 
 const indices = [
   [1, 2],
-  [1, 2],
   [2, 4],
   [5, 8],
   [6, 9],
@@ -26,8 +25,6 @@ for (let i = 0; i < descripcion.length; i++) {
     indiceLesion: indices[i],
   });
 }
-
-export { entidad };
 
 const entidad2 = new Map();
 

@@ -18,4 +18,12 @@ export const gradoLesion = [
   "Grado máximo: Grave",
 ];
 
-export const juntasTribunales = ["cero", "Una", "más de una"];
+export const juntasTribunales = ["si", "No"];
+
+const arregloPorcentaje: string[] = [];
+
+for (let i = 0; i <= 100; i++) {
+  arregloPorcentaje.push(i + "%");
+}
+
+export { arregloPorcentaje };

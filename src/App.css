@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 }
+.discleimer {
+  margin-bottom: 4rem;
+}
+.container-grid {
+  display: flex;
+  flex-direction: column;
+}
+.container__forms {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+}
