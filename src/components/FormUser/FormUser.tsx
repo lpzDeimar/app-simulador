@@ -5,20 +5,20 @@ import {
   juntasTribunales,
 } from "@/api/data";
 import { Error } from "@/models/InfoAlert";
+import { Button, ButtonGroup } from "@mui/material";
 import Box from "@mui/material/Box";
 import { SelectChangeEvent } from "@mui/material/Select";
 import * as React from "react";
 import SelectInput from "../SelectInput/SelectInput";
 import "./FormUser.scss";
-import { Button, ButtonGroup } from "@mui/material";
-import IOSSlider from "../Slider/Slider";
+import { dataApi } from "@/models/dataApi";
 
 type formType = {
-  titulo: string;
-  handlePerdida: (valor: string) => void;
+  enfermedad: dataApi;
+  handleFuncTotal: (valor: number) => void;
 };
 
-const FormUser: React.FC<formType> = ({ titulo, handlePerdida }) => {
+const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
   const [age, setAge] = React.useState("");
   const handleAge = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
@@ -41,10 +41,6 @@ const FormUser: React.FC<formType> = ({ titulo, handlePerdida }) => {
 
   const [disable, setDisable] = React.useState(false);
 
-  const handleDisable = () => {
-    setDisable(true);
-    console.log(validations);
-  };
   const handleActive = () => {
     setDisable(false);
   };
@@ -107,51 +103,32 @@ const FormUser: React.FC<formType> = ({ titulo, handlePerdida }) => {
       });
     } else {
       setValidations((v) => {
-        handlePerdida(porcentaje);
         return { ...v, porcentaje: porcentaje };
       });
     }
   };
 
-  const marks = [
-    {
-      value: 0,
-    },
-    {
-      value: 10,
-    },
-    {
-      value: 20,
-    },
-    {
-      value: 30,
-    },
-    {
-      value: 40,
-    },
-    {
-      value: 50,
-    },
-    {
-      value: 60,
-    },
-    {
-      value: 70,
-    },
-    {
-      value: 80,
-    },
-    {
-      value: 90,
-    },
-    {
-      value: 100,
-    },
-  ];
-
+  const handleDisable = () => {
+    if (juntas === juntasTribunales[0] && porcentaje.length > 1) {
+      const valorPorcentaje = porcentaje.split("%");
+      const valorPorcentajeDiscapacidad = Number.parseInt(valorPorcentaje[0]);
+      handleFuncTotal(valorPorcentajeDiscapacidad);
+    } else {
+      validateJuntas();
+      validatePorcentaje();
+    }
+    if (juntas === juntasTribunales[1] && age.length > 1 && gradoL.length > 1) {
+    } else {
+      validateJuntas();
+      validateAge();
+      validateGradoL();
+    }
+  };
   return (
     <article className="container">
-      <h3>{titulo}</h3>
+      <h3>
+        <span>{enfermedad.indice}</span> -{enfermedad.descripcion}
+      </h3>
       <Box sx={{ minWidth: 120 }} className={"formuser"}>
         <div className="div__junta">
           <SelectInput
@@ -164,16 +141,6 @@ const FormUser: React.FC<formType> = ({ titulo, handlePerdida }) => {
             titulo="Cuántas juntas o tribunales médicos le han practicado anteriormente*"
             isTop={false}
             alert={validations.juntas}
-          />
-          <SelectInput
-            disableSend={disable}
-            blur={validateAge}
-            arreglo={edades}
-            funcionHandle={handleAge}
-            label="Edad"
-            titulo="Rango de edad*"
-            estado={age}
-            alert={validations.ageV}
           />
           {juntas === juntasTribunales[0] && (
             <SelectInput
@@ -190,18 +157,31 @@ const FormUser: React.FC<formType> = ({ titulo, handlePerdida }) => {
             />
           )}
         </div>
+
         {juntas === juntasTribunales[1] && (
-          <SelectInput
-            disableSend={disable}
-            blur={validateGradoL}
-            arreglo={gradoLesion}
-            funcionHandle={handleGradoLesion}
-            estado={gradoL}
-            label="grado"
-            titulo="Grado de la lesión o enfermedad*"
-            isTop={false}
-            alert={validations.gradoL}
-          />
+          <>
+            <SelectInput
+              disableSend={disable}
+              blur={validateGradoL}
+              arreglo={gradoLesion}
+              funcionHandle={handleGradoLesion}
+              estado={gradoL}
+              label="grado"
+              titulo="Grado de la lesión o enfermedad*"
+              isTop={false}
+              alert={validations.gradoL}
+            />
+            <SelectInput
+              disableSend={disable}
+              blur={validateAge}
+              arreglo={edades}
+              funcionHandle={handleAge}
+              label="Edad"
+              titulo="Rango de edad*"
+              estado={age}
+              alert={validations.ageV}
+            />
+          </>
         )}
       </Box>
       <ButtonGroup

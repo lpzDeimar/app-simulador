@@ -22,7 +22,6 @@ const MenuProps = {
 };
 
 const names = Array.from(entidadFusionada);
-
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
   return {
     fontWeight:
@@ -69,7 +68,8 @@ export default function MultipleSelectChip({
         {names.map((name) => (
           <MenuItem
             key={name[0]}
-            value={name[1].descripcion}
+            id={name[0]}
+            value={name[0]}
             style={getStyles(name[1].descripcion, estado, theme)}
           >
             {name[1].descripcion}
