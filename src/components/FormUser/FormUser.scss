@@ -27,6 +27,12 @@ h2 {
   padding: 0 2rem;
   background: rgba(255, 255, 255, 0.4);
   border: #0000004e 1px solid;
+
+  .buttons {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 1.1rem;
+  }
 }
 .rangee {
   width: 100%;

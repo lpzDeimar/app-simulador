@@ -48,7 +48,6 @@ function App() {
   };
 
   const isValide = personName.length <= 3;
-  console.log(perdida);
   return (
     <div className="container-grid">
       <Discleimer />

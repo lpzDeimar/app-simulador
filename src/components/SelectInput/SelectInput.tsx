@@ -21,6 +21,7 @@ type PropsInput = {
   alert: string;
   classcss?: string;
   blur: () => void;
+  disableSend: boolean;
 };
 
 const SelectInput: React.FC<PropsInput> = ({
@@ -34,6 +35,7 @@ const SelectInput: React.FC<PropsInput> = ({
   alert,
   classcss,
   blur,
+  disableSend,
 }) => {
   const estilos = `${classcss} rangee`;
   return (
@@ -43,6 +45,7 @@ const SelectInput: React.FC<PropsInput> = ({
         {label}
       </InputLabel>
       <Select
+        disabled={disableSend}
         labelId="demo-simple"
         id="demo-simple"
         value={estado}

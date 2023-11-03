@@ -10,6 +10,8 @@ import { SelectChangeEvent } from "@mui/material/Select";
 import * as React from "react";
 import SelectInput from "../SelectInput/SelectInput";
 import "./FormUser.scss";
+import { Button, ButtonGroup } from "@mui/material";
+import IOSSlider from "../Slider/Slider";
 
 type formType = {
   titulo: string;
@@ -37,13 +39,21 @@ const FormUser: React.FC<formType> = ({ titulo, handlePerdida }) => {
     setPorcentaje(event.target.value as string);
   };
 
+  const [disable, setDisable] = React.useState(false);
+
+  const handleDisable = () => {
+    setDisable(true);
+    console.log(validations);
+  };
+  const handleActive = () => {
+    setDisable(false);
+  };
+
   const initialValidations = {
     ageV: "",
-    disease: "",
     gradoL: "",
     juntas: "",
     porcentaje: "",
-    personName: [""],
   };
 
   const [validations, setValidations] = React.useState(initialValidations);
@@ -103,12 +113,49 @@ const FormUser: React.FC<formType> = ({ titulo, handlePerdida }) => {
     }
   };
 
+  const marks = [
+    {
+      value: 0,
+    },
+    {
+      value: 10,
+    },
+    {
+      value: 20,
+    },
+    {
+      value: 30,
+    },
+    {
+      value: 40,
+    },
+    {
+      value: 50,
+    },
+    {
+      value: 60,
+    },
+    {
+      value: 70,
+    },
+    {
+      value: 80,
+    },
+    {
+      value: 90,
+    },
+    {
+      value: 100,
+    },
+  ];
+
   return (
     <article className="container">
       <h3>{titulo}</h3>
       <Box sx={{ minWidth: 120 }} className={"formuser"}>
         <div className="div__junta">
           <SelectInput
+            disableSend={disable}
             blur={validateJuntas}
             arreglo={juntasTribunales}
             funcionHandle={handleJuntas}
@@ -118,8 +165,19 @@ const FormUser: React.FC<formType> = ({ titulo, handlePerdida }) => {
             isTop={false}
             alert={validations.juntas}
           />
+          <SelectInput
+            disableSend={disable}
+            blur={validateAge}
+            arreglo={edades}
+            funcionHandle={handleAge}
+            label="Edad"
+            titulo="Rango de edad*"
+            estado={age}
+            alert={validations.ageV}
+          />
           {juntas === juntasTribunales[0] && (
             <SelectInput
+              disableSend={disable}
               blur={validatePorcentaje}
               classcss="grid-left"
               arreglo={arregloPorcentaje}
@@ -133,30 +191,27 @@ const FormUser: React.FC<formType> = ({ titulo, handlePerdida }) => {
           )}
         </div>
         {juntas === juntasTribunales[1] && (
-          <>
-            <SelectInput
-              blur={validateAge}
-              arreglo={edades}
-              funcionHandle={handleAge}
-              label="Edad"
-              titulo="Rango de edad*"
-              estado={age}
-              alert={validations.ageV}
-            />
-
-            <SelectInput
-              blur={validateGradoL}
-              arreglo={gradoLesion}
-              funcionHandle={handleGradoLesion}
-              estado={gradoL}
-              label="grado"
-              titulo="Grado de la lesión o enfermedad*"
-              isTop={false}
-              alert={validations.gradoL}
-            />
-          </>
+          <SelectInput
+            disableSend={disable}
+            blur={validateGradoL}
+            arreglo={gradoLesion}
+            funcionHandle={handleGradoLesion}
+            estado={gradoL}
+            label="grado"
+            titulo="Grado de la lesión o enfermedad*"
+            isTop={false}
+            alert={validations.gradoL}
+          />
         )}
       </Box>
+      <ButtonGroup
+        className="buttons"
+        variant="text"
+        aria-label="text button group"
+      >
+        <Button onClick={handleActive}>Editar</Button>
+        <Button onClick={handleDisable}>Enviar</Button>
+      </ButtonGroup>
     </article>
   );
 };
