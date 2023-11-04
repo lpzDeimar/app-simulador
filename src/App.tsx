@@ -101,7 +101,7 @@ function App() {
         blur={handleBlurMultiple}
       />
 
-      {formulaDiscapacidad > 0 && (
+      {formulaDiscapacidad > 0 && personName.length < 4 && (
         <Box className="result">
           <p className="parrafo__result">{formulaDiscapacidad}%</p>
 

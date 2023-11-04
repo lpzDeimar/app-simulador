@@ -66,7 +66,7 @@ export default function MultipleSelectChip({
           id="demo-multiple-chip"
           multiple
           value={estado}
-          onBlur={() => blur()}
+          onFocus={() => blur()}
           onChange={funcHandle}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
