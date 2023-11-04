@@ -5,7 +5,7 @@ import MultipleSelectChip from "@/components/MultipleSelect/MultipleSelect";
 import { Error } from "@/models/InfoAlert";
 import { dataApi } from "@/models/dataApi";
 import { Box, SelectChangeEvent } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 const initialValidations = {
@@ -34,15 +34,15 @@ function App() {
         total = ((100 - totalDiscapacidad[0]) * totalDiscapacidad[1]) / 100;
       }
       if (totalDiscapacidad.length === 3) {
-        total =
-          100 -
-          (totalDiscapacidad[0] - totalDiscapacidad[1]) *
-            (totalDiscapacidad[2] / 100);
+        const a = totalDiscapacidad[2] / 100;
+        const b = 100 - totalDiscapacidad[0] + totalDiscapacidad[1];
+        total = b * a;
       }
       console.log(totalDiscapacidad, total);
       setFormulaDiscapacidad(total);
     }
   };
+
   const handleTotalDiscapacidad = (valor: number, initial?: boolean) => {
     if (initial) {
       const newValue = totalDiscapacidad.filter((f) => f !== valor);
@@ -50,7 +50,6 @@ function App() {
     } else {
       setTotalDiscapacidad([...totalDiscapacidad, valor]);
     }
-    handleFormulaDiscapacidad();
   };
 
   const handleChangeMultiple = (
@@ -88,6 +87,9 @@ function App() {
   };
 
   const isValide = personName.length <= 3;
+  useEffect(() => {
+    handleFormulaDiscapacidad();
+  }, [totalDiscapacidad]);
 
   return (
     <div className="container-grid">
@@ -99,19 +101,19 @@ function App() {
         blur={handleBlurMultiple}
       />
 
-      {personName.length === totalDiscapacidad.length &&
-        personName.length !== 0 && (
-          <Box className="result">
-            <p className="parrafo__result">{formulaDiscapacidad}%</p>
+      {formulaDiscapacidad > 0 && (
+        <Box className="result">
+          <p className="parrafo__result">{formulaDiscapacidad}%</p>
 
-            <button
-              className="button__result"
-              onClick={handleFormulaDiscapacidad}
-            >
-              ver Resultado
-            </button>
-          </Box>
-        )}
+          <button
+            disabled
+            className="button__result"
+            onClick={handleFormulaDiscapacidad}
+          >
+            Tu resultado
+          </button>
+        </Box>
+      )}
       <article className="container__forms">
         {isValide &&
           dataEnfermadadApi.map((enfermedad) => (

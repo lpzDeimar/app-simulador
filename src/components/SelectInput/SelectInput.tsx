@@ -52,7 +52,7 @@ const SelectInput: React.FC<PropsInput> = ({
         label={label}
         renderValue={reden}
         onChange={funcionHandle}
-        onBlur={blur}
+        onFocus={blur}
       >
         {arreglo.map((e) => (
           <MenuItem key={e} value={e}>

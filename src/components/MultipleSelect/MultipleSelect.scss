@@ -1,3 +1,13 @@
 .multiple__select {
-  min-width: 30rem !important;
+  min-width: 30rem;
+}
+.alerta {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 2rem;
+  justify-content: space-between;
+}
+.alerta-container {
+  margin-bottom: 3rem;
 }

@@ -30,6 +30,7 @@ const initialValidations = {
 const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
   const [age, setAge] = React.useState("");
   const handleAge = (event: SelectChangeEvent) => {
+    validateAge();
     setAge(event.target.value as string);
   };
 
