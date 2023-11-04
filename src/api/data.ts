@@ -17,6 +17,10 @@ export const gradoLesion = [
   "Grado medio",
   "Grado máximo: Grave",
 ];
+export const gradoLesionDosOpciones = [
+  "Grado mínimo: Leve",
+  "Grado máximo: Grave",
+];
 
 export const juntasTribunales = ["si", "No"];
 

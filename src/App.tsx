@@ -1,12 +1,12 @@
-import { SelectChangeEvent } from "@mui/material";
-import { useState } from "react";
-import "./App.css";
+import { entidadFusionada } from "@/api/enfemedades";
 import { Discleimer } from "@/components/Discleimer";
 import { FormUser } from "@/components/FormUser";
 import MultipleSelectChip from "@/components/MultipleSelect/MultipleSelect";
 import { Error } from "@/models/InfoAlert";
-import { entidadFusionada } from "@/api/enfemedades";
 import { dataApi } from "@/models/dataApi";
+import { Box, SelectChangeEvent } from "@mui/material";
+import { useState } from "react";
+import "./App.css";
 
 const initialValidations = {
   personName: [""],
@@ -20,8 +20,37 @@ function App() {
 
   const [totalDiscapacidad, setTotalDiscapacidad] = useState<number[]>([]);
 
-  const handleTotalDiscapacidad = (valor: number) => {
-    setTotalDiscapacidad([...totalDiscapacidad, valor]);
+  const [formulaDiscapacidad, setFormulaDiscapacidad] = useState(0);
+
+  const handleFormulaDiscapacidad = () => {
+    if (personName.length === 0) {
+      setTotalDiscapacidad([]);
+    } else if (personName.length === totalDiscapacidad.length) {
+      let total = 0;
+      if (totalDiscapacidad.length === 1) {
+        total = totalDiscapacidad[0];
+      }
+      if (totalDiscapacidad.length === 2) {
+        total = ((100 - totalDiscapacidad[0]) * totalDiscapacidad[1]) / 100;
+      }
+      if (totalDiscapacidad.length === 3) {
+        total =
+          100 -
+          (totalDiscapacidad[0] - totalDiscapacidad[1]) *
+            (totalDiscapacidad[2] / 100);
+      }
+      console.log(totalDiscapacidad, total);
+      setFormulaDiscapacidad(total);
+    }
+  };
+  const handleTotalDiscapacidad = (valor: number, initial?: boolean) => {
+    if (initial) {
+      const newValue = totalDiscapacidad.filter((f) => f !== valor);
+      setTotalDiscapacidad([...newValue]);
+    } else {
+      setTotalDiscapacidad([...totalDiscapacidad, valor]);
+    }
+    handleFormulaDiscapacidad();
   };
 
   const handleChangeMultiple = (
@@ -69,7 +98,20 @@ function App() {
         alert={validations.personName}
         blur={handleBlurMultiple}
       />
-      {totalDiscapacidad}
+
+      {personName.length === totalDiscapacidad.length &&
+        personName.length !== 0 && (
+          <Box className="result">
+            <p className="parrafo__result">{formulaDiscapacidad}%</p>
+
+            <button
+              className="button__result"
+              onClick={handleFormulaDiscapacidad}
+            >
+              ver Resultado
+            </button>
+          </Box>
+        )}
       <article className="container__forms">
         {isValide &&
           dataEnfermadadApi.map((enfermedad) => (
