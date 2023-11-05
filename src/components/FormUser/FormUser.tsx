@@ -174,7 +174,7 @@ const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
               funcionHandle={handleJuntas}
               label="juntas"
               estado={juntas}
-              titulo="Cuántas juntas o tribunales médicos le han practicado anteriormente*"
+              titulo="Tuvo juntas o tribunales médicos por esta enfermedad*"
               isTop={false}
               alert={validations.juntas}
             />
