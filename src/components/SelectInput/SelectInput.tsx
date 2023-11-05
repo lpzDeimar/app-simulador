@@ -43,7 +43,6 @@ const SelectInput: React.FC<PropsInput> = ({
       <h2 className={isTop ? "top25" : "top35"}>{titulo}</h2>
       <InputLabel id="demo-simple">{label}</InputLabel>
       <Select
-        className="indez"
         disabled={disableSend}
         labelId="demo-simple"
         id="demo-simple"
