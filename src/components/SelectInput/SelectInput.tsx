@@ -17,7 +17,6 @@ type PropsInput = {
   label: string;
   estado: string;
   reden?: (value: string) => React.ReactNode | undefined;
-  isTop?: boolean;
   alert: string;
   className?: string;
   blur: () => void;
@@ -31,7 +30,6 @@ const SelectInput: React.FC<PropsInput> = ({
   titulo,
   estado,
   reden,
-  isTop = true,
   alert,
   className,
   blur,
@@ -47,8 +45,8 @@ const SelectInput: React.FC<PropsInput> = ({
           alert === estado
             ? "success"
             : alert === Contact.ABOGADO
-              ? "warning"
-              : "error"
+            ? "warning"
+            : "error"
         }
         disabled={disableSend}
         labelId="demo-simple"
@@ -66,17 +64,11 @@ const SelectInput: React.FC<PropsInput> = ({
         ))}
       </Select>
 
-      {alert !== estado &&
-        <Alert
-          severity={
-            alert === Contact.ABOGADO
-                ? "warning"
-                : "error"
-          }>
-            {alert}
+      {alert !== estado && (
+        <Alert severity={alert === Contact.ABOGADO ? "warning" : "error"}>
+          {alert}
         </Alert>
-      }
-
+      )}
     </FormControl>
   );
 };

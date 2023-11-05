@@ -1,5 +1,4 @@
 import {
-  arregloPorcentaje,
   edades,
   gradoLesion,
   gradoLesionDosOpciones,
@@ -8,7 +7,7 @@ import {
 } from "@/api/data";
 import { Error } from "@/models/InfoAlert";
 import { dataApi } from "@/models/dataApi";
-import { Alert, Button, ButtonGroup, Slider } from "@mui/material";
+import { Alert, Button, Slider } from "@mui/material";
 import Box from "@mui/material/Box";
 import { SelectChangeEvent } from "@mui/material/Select";
 import * as React from "react";
@@ -48,7 +47,7 @@ const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
 
   const handlePorcentaje = (value: number) => {
     setPorcentaje(`${value}%`);
-    return `${value}%`
+    return `${value}%`;
   };
 
   const [disable, setDisable] = React.useState(false);
@@ -112,33 +111,27 @@ const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
       validateJuntas();
     }
 
-    
     if (juntas === juntasTribunales[1] && age.length > 1 && gradoL.length > 1) {
-
       let indiceDiscapacidad: number = 0;
       const pocisionTablaEdad = edades.indexOf(age);
       const tablaPocisionIndicada = tabla[pocisionTablaEdad];
 
       if (enfermedad.indiceLesion.length > 2) {
-
         if (gradoL === gradoLesion[0]) {
-          indiceDiscapacidad = enfermedad.indiceLesion[0] - 1
+          indiceDiscapacidad = enfermedad.indiceLesion[0] - 1;
         } else if (gradoL === gradoLesion[1]) {
-          indiceDiscapacidad = enfermedad.indiceLesion[1] - 1
+          indiceDiscapacidad = enfermedad.indiceLesion[1] - 1;
         } else {
-          indiceDiscapacidad = enfermedad.indiceLesion[2] - 1
+          indiceDiscapacidad = enfermedad.indiceLesion[2] - 1;
         }
-
       } else if (enfermedad.indiceLesion.length > 1) {
-
         if (gradoL === gradoLesion[0]) {
-          indiceDiscapacidad = enfermedad.indiceLesion[0] - 1
+          indiceDiscapacidad = enfermedad.indiceLesion[0] - 1;
         } else if (gradoL === gradoLesion[1]) {
-          indiceDiscapacidad = enfermedad.indiceLesion[1] - 1
+          indiceDiscapacidad = enfermedad.indiceLesion[1] - 1;
         } else {
-          indiceDiscapacidad = enfermedad.indiceLesion[1] - 1
+          indiceDiscapacidad = enfermedad.indiceLesion[1] - 1;
         }
-
       } else {
         indiceDiscapacidad = enfermedad.indiceLesion[0] - 1;
       }
@@ -159,37 +152,22 @@ const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
   };
   return (
     <article className="form">
-      <h4 className="title">
-        {enfermedad.descripcion}
-      </h4>
+      <h4 className="title">{enfermedad.descripcion}</h4>
       {!disable ? (
         <Box sx={{ minWidth: 120 }} className={"content"}>
-            <SelectInput
-              className="large__input"
-              disableSend={disable}
-              blur={validateJuntas}
-              arreglo={juntasTribunales}
-              funcionHandle={handleJuntas}
-              label="juntas"
-              estado={juntas}
-              titulo="a tenido tribunales o un médicos le han practicado anteriormente*"
-              isTop={false}
-              alert={validations.juntas}
-            />
-            {juntas === juntasTribunales[0] && (
-              // <SelectInput
-              //   className="large__input"
-              //   disableSend={disable}
-              //   blur={validatePorcentaje}
-              //   arreglo={arregloPorcentaje}
-              //   funcionHandle={handlePorcentaje}
-              //   label="Porcentaje"
-              //   estado={porcentaje}
-              //   titulo="porcentaje de disminución de capacidad laboral que va de 0 a 100%*"
-              //   isTop={false}
-              //   alert={validations.porcentaje}
-              // />
-              <>
+          <SelectInput
+            className="large__input"
+            disableSend={disable}
+            blur={validateJuntas}
+            arreglo={juntasTribunales}
+            funcionHandle={handleJuntas}
+            label="juntas"
+            estado={juntas}
+            titulo="a tenido tribunales o un médicos le han practicado anteriormente*"
+            alert={validations.juntas}
+          />
+          {juntas === juntasTribunales[0] && (
+            <>
               <label>Porcentaje dado por el tribunal o medico</label>
               <Slider
                 aria-label="Temperature"
@@ -201,8 +179,8 @@ const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
                 min={0}
                 max={100}
               />
-              </>
-            )}
+            </>
+          )}
 
           {juntas === juntasTribunales[1] && (
             <div className="grouped__selects">
@@ -219,7 +197,6 @@ const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
                 estado={gradoL}
                 label="grado"
                 titulo="Grado de la lesión o enfermedad*"
-                isTop={false}
                 alert={validations.gradoL}
               />
               <SelectInput
@@ -243,12 +220,18 @@ const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
       )}
 
       <div className="groups__buttons">
-        <Button variant="text" onClick={handleActive}>Editar</Button>
-        <Button variant="contained" color="success" onClick={handleDisable} disabled={disable}>
+        <Button variant="text" onClick={handleActive}>
+          Editar
+        </Button>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={handleDisable}
+          disabled={disable}
+        >
           Enviar
         </Button>
       </div>
-
     </article>
   );
 };

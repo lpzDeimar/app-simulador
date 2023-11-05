@@ -24,14 +24,6 @@ export const gradoLesionDosOpciones = [
 
 export const juntasTribunales = ["Si", "No"];
 
-const arregloPorcentaje: string[] = [];
-
-for (let i = 0; i <= 100; i++) {
-  arregloPorcentaje.push(i + "%");
-}
-
-export { arregloPorcentaje };
-
 //arreglo
 export const tabla = [
   [
