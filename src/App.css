@@ -46,10 +46,19 @@
 .container-grid {
   display: flex;
   flex-direction: column;
+  width: auto;
 }
 .container__forms {
+  max-width: 85vw;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+}
+@media screen and (max-width: 820px) {
+  .container__forms {
+    display: flex;
+    flex-direction: column;
+    max-width: 80vw;
+  }
 }
 .result {
   padding: 2rem;

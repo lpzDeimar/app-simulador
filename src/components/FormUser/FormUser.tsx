@@ -165,7 +165,7 @@ const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
         <span>{enfermedad.indice}</span> -{enfermedad.descripcion}
       </h3>
       {!disable ? (
-        <Box sx={{ minWidth: 120 }} className={"formuser"}>
+        <Box sx={{ minWidth: 120 }} className="formuser">
           <div className="div__junta">
             <SelectInput
               disableSend={disable}
