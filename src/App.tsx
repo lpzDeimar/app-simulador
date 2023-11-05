@@ -82,7 +82,7 @@ function App() {
       });
     } else if (
       validations.personName[0] === Error.PERSONNAME ||
-      personName.length < 3
+      personName.length <= 3
     ) {
       setValidations((v) => {
         return { ...v, personName: personName };
