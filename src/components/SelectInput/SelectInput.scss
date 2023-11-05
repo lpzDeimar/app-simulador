@@ -1,9 +1,20 @@
 .rangee {
-  margin: 1rem 0 4rem !important;
+  text-align: left;
 }
-.top25 {
-  top: -2.5rem;
+
+.index{
+  background-color: white;
+  padding: 0 .2rem !important;
 }
-.top35 {
-  top: -4rem;
+
+.success{
+  border-bottom: 2px solid green;
+}
+
+.warning{
+  border-bottom: 2px solid  yellow;
+}
+
+.error{
+  border-bottom: 2px solid  red;
 }

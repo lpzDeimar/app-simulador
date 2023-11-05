@@ -22,7 +22,7 @@ export const gradoLesionDosOpciones = [
   "Grado máximo: Grave",
 ];
 
-export const juntasTribunales = ["si", "No"];
+export const juntasTribunales = ["Si", "No"];
 
 const arregloPorcentaje: string[] = [];
 

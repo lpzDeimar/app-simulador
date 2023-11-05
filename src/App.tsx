@@ -1,26 +1,30 @@
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { entidadFusionada } from "@/api/enfemedades";
-import { Discleimer } from "@/components/Discleimer";
+import { Disclaimer } from "@/components/Disclaimer";
 import { FormUser } from "@/components/FormUser";
 import MultipleSelectChip from "@/components/MultipleSelect/MultipleSelect";
 import { Error } from "@/models/InfoAlert";
 import { dataApi } from "@/models/dataApi";
 import { Box, SelectChangeEvent } from "@mui/material";
 import { useEffect, useState } from "react";
+
 import "./App.css";
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+import { Navigation } from 'swiper/modules';
 
 const initialValidations = {
   personName: [""],
 };
 function App() {
   const [personName, setPersonName] = useState<string[]>([]);
-
   const [dataEnfermadadApi, setDataEnfermadadApi] = useState<dataApi[]>([]);
-
   const [validations, setValidations] = useState(initialValidations);
-
   const [totalDiscapacidad, setTotalDiscapacidad] = useState<number[]>([]);
-
   const [formulaDiscapacidad, setFormulaDiscapacidad] = useState(0);
+
 
   const handleFormulaDiscapacidad = () => {
     if (personName.length === 0) {
@@ -92,8 +96,8 @@ function App() {
   }, [totalDiscapacidad]);
 
   return (
-    <div className="container-grid">
-      <Discleimer />
+    <div className="containerApp">
+      <Disclaimer />
       <MultipleSelectChip
         estado={personName}
         funcHandle={handleChangeMultiple}
@@ -114,16 +118,29 @@ function App() {
           </button>
         </Box>
       )}
-      <article className="container__forms">
-        {isValide &&
-          dataEnfermadadApi.map((enfermedad) => (
-            <FormUser
-              key={enfermedad.indice}
-              enfermedad={enfermedad}
-              handleFuncTotal={handleTotalDiscapacidad}
-            />
-          ))}
-      </article>
+      <>
+        <Swiper 
+          allowTouchMove={false} 
+          navigation={true}
+          modules={[Navigation]} 
+          className="mySwiper" 
+          slidesPerView={1}
+          preventClicks={false}
+          preventClicksPropagation={false}>
+          {isValide &&
+            dataEnfermadadApi.map((enfermedad) => (
+              <SwiperSlide>
+                <div className='slider__item'>
+                <FormUser
+                  key={enfermedad.indice}
+                  enfermedad={enfermedad}
+                  handleFuncTotal={handleTotalDiscapacidad}
+                />
+                </div>
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </>
     </div>
   );
 }
