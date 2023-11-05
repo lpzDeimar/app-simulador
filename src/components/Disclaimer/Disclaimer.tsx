@@ -1,7 +1,7 @@
 import { Alert } from "@mui/material";
 import React from "react";
 
-const Discleimer: React.FC = () => (
+const Disclaimer: React.FC = () => (
   <div className="discleimer">
     <h3>Simulador Disminución de la capacidad laboral</h3>
     <Alert variant="outlined" severity="info">
@@ -13,4 +13,4 @@ const Discleimer: React.FC = () => (
   </div>
 );
 
-export default Discleimer;
+export default Disclaimer;

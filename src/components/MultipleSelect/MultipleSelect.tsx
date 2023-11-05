@@ -1,7 +1,7 @@
 import { entidadFusionada } from "@/api/enfemedades";
 import "@/components/MultipleSelect/MultipleSelect.scss";
-import { Contact, Error } from "@/models/InfoAlert";
-import { Alert } from "@mui/material";
+import { Contact } from "@/models/InfoAlert";
+import { Alert, InputLabel } from "@mui/material";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import FormControl from "@mui/material/FormControl";
@@ -58,15 +58,17 @@ export default function MultipleSelectChip({
           </Alert>
         </>
       )}
-      <FormControl className="multiple__select">
-        <h2>Seleccione la lesión o enfermedad (máximo 3)*</h2>
+      <article className="container__multiple__select">
+      <FormControl className="multiple__select large__select">
 
+        <InputLabel className="index" id="demo-simple">
+          "Seleccione la lesión o enfermedad (máximo 3)*"
+        </InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
           value={estado}
-          onBlur={blur}
           onChange={funcHandle}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
@@ -89,18 +91,9 @@ export default function MultipleSelectChip({
             </MenuItem>
           ))}
         </Select>
-        <Alert
-          severity={
-            alert[0] === Error.PERSONNAME
-              ? "error"
-              : alert[0] === Error.PERSONNAMEVACIO
-              ? "error"
-              : "success"
-          }
-        >
-          {alert[0]}
-        </Alert>
+   
       </FormControl>
+      </article>
     </>
   );
 }

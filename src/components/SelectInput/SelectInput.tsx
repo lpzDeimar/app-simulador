@@ -19,7 +19,7 @@ type PropsInput = {
   reden?: (value: string) => React.ReactNode | undefined;
   isTop?: boolean;
   alert: string;
-  classcss?: string;
+  className?: string;
   blur: () => void;
   disableSend: boolean;
 };
@@ -33,16 +33,23 @@ const SelectInput: React.FC<PropsInput> = ({
   reden,
   isTop = true,
   alert,
-  classcss,
+  className,
   blur,
   disableSend,
 }) => {
-  const estilos = `${classcss} rangee`;
   return (
-    <FormControl className={estilos}>
-      <h2 className={isTop ? "top25" : "top35"}>{titulo}</h2>
-      <InputLabel id="demo-simple">{label}</InputLabel>
+    <FormControl className={`${className} rangee`}>
+      <InputLabel className="index" id="demo-simple">
+        {titulo}
+      </InputLabel>
       <Select
+        className={
+          alert === estado
+            ? "success"
+            : alert === Contact.ABOGADO
+              ? "warning"
+              : "error"
+        }
         disabled={disableSend}
         labelId="demo-simple"
         id="demo-simple"
@@ -58,17 +65,18 @@ const SelectInput: React.FC<PropsInput> = ({
           </MenuItem>
         ))}
       </Select>
-      <Alert
-        severity={
-          alert === estado
-            ? "success"
-            : alert === Contact.ABOGADO
-            ? "warning"
-            : "error"
-        }
-      >
-        {alert}
-      </Alert>
+
+      {alert !== estado &&
+        <Alert
+          severity={
+            alert === Contact.ABOGADO
+                ? "warning"
+                : "error"
+          }>
+            {alert}
+        </Alert>
+      }
+
     </FormControl>
   );
 };
