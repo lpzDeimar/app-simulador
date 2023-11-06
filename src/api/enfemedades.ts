@@ -25,7 +25,6 @@ for (let i = 0; i < descripcion.length; i++) {
     indiceLesion: indices[i],
   });
 }
-
 const entidad2 = new Map();
 
 const codigos = [
@@ -96,8 +95,26 @@ const codigos = [
   "1-153",
   "1-154",
   "1-155",
+  "1-156",
+  "1-157",
+  "1-158",
+  "1-168",
+  "1-169",
+  "1-170",
+  "1-171",
+  "1-172",
+  "1-173",
+  "1-174",
+  "1-175",
+  "1-176",
+  "1-186",
+  "1-187",
+  "1-188",
+  "1-189",
+  "1-190",
+  "1-191",
+  "1-192",
 ];
-
 const descripcion2 = [
   "Lesiones de los huesos propios con estenosis nasal unilateral",
   "Lesiones de los huesos propios con estenosis nasal",
@@ -166,6 +183,25 @@ const descripcion2 = [
   "Pérdida anatómica o funcional",
   "Pérdida anatómica de las dos (2) últimas falanges",
   "Pérdida anatómica de la falange ungueal",
+  "Anquilosis metacarpofalángica.",
+  "Anquilosis de las articulaciones interfalángicas.",
+  "Anquilosis de una articulación interfalángica",
+  "Lesiones o afecciones que alteran la función de las dos articulaciones coxofemorales",
+  "Lesiones o afecciones que alteran la función de una articulación coxofemoral",
+  "Lesiones o afecciones que produzcan inmovilidad completa de las dos articulaciones coxofemorales",
+  "Lesiones o afecciones que produzcan inmovilidad completa de una articulación coxofemoral",
+  "Lesiones o afecciones del muslo según la alteración ósea y las partes blandas",
+  "Perdida anatómica total de los dos(2) miembros inferiores",
+  "Pérdida anatómica de los dos /2) miembros inferiores",
+  "Pérdida anatómica de un miembro inferior",
+  "Lesiones o afecciones que produzcan asimetría longitudinal de los miembros inferiores",
+  "Perdida anatómica de una (1) pierna por desarticulación de la rodilla.",
+  "Pérdida anatómica de una (1) pierna con conservación funcional de la rodilla y con muñón para prótesis.",
+  "Lesiones o afecciones que inmovilicen las dos articulaciones de las rodillas ",
+  "Lesiones o afecciones que inmovilicen una rodilla",
+  "Lesiones o afecciones que produzcan alteración de la función de las dos (2 ) rodillas ",
+  "Lesiones o afecciones que produzcan alteración de la función de una rodilla…",
+  "Lesiones o afecciones de la pierna según el grado de alteración ósea y de las piernas blandas",
 ];
 
 const indices2 = [
@@ -236,6 +272,25 @@ const indices2 = [
   [4, 5],
   [2, 3],
   [1],
+  [4, 5],
+  [2, 3],
+  [1],
+  [9, 12, 15],
+  [8],
+  [20],
+  [13],
+  [6, 9],
+  [21],
+  [20, 21],
+  [19, 20],
+  [2, 5, 9],
+  [20],
+  [19],
+  [10, 16],
+  [8, 15],
+  [7, 10, 13],
+  [7],
+  [2, 6],
 ];
 
 for (let i = 0; i < codigos.length; i++) {
