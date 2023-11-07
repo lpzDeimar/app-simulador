@@ -124,7 +124,16 @@ function App() {
           </button>
         </Box>
       )}
-      {isTwo.length >= 2 && <Alert severity="warning">{Contact.ABOGADO}</Alert>}
+      {isTwo.length >= 2 && (
+        <Alert severity="warning" className="alerta-container">
+          <div className="alerta">
+            {Contact.ABOGADO}
+            <button>
+              Click aqui para contactar con un abogado de la firma
+            </button>
+          </div>
+        </Alert>
+      )}
       <>
         <Swiper
           allowTouchMove={false}
