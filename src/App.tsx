@@ -111,12 +111,6 @@ function App() {
     }
   }, [formulaDiscapacidad]);
 
-  useEffect(() => {
-    if (formulaDiscapacidad !== 0) {
-      // resetFormulaDiscapacidad()
-    }
-  }, [dataEnfermadadApi]);
-
   const resetFormulaDiscapacidad = () => {
     setIsVisibleResult(false);
     setFormulaDiscapacidad(0);
