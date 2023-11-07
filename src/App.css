@@ -8,9 +8,27 @@
   .large__select{
    width: 100%;
   }
-  @media screen and (min-width: 700px) {
-  .slider__item{
-    padding: 0 4rem;
+  .forms__simulator{
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  .result{
+    margin: 0 auto;
+    border: 1px solid #c0c0c0;
+    border-radius: .4rem;
+    padding: 1rem  3rem;
+    max-width: 20rem;
+
+    .parrafo__result{
+      text-align: center;
+      .porcentaje{
+        margin-top: .5rem;
+        display: block;
+        font-weight: bold;
+        font-size: 4rem;
+      }
     }
   }
+
 }

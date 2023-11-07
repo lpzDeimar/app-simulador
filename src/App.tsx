@@ -5,7 +5,7 @@ import { FormUser } from "@/components/FormUser";
 import MultipleSelectChip from "@/components/MultipleSelect/MultipleSelect";
 import { Contact, Error } from "@/models/InfoAlert";
 import { dataApi } from "@/models/dataApi";
-import { Alert, Box, SelectChangeEvent } from "@mui/material";
+import { Alert, Box, Button, SelectChangeEvent } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import "./App.css";
@@ -24,14 +24,14 @@ function App() {
   const [validations, setValidations] = useState(initialValidations);
   const [totalDiscapacidad, setTotalDiscapacidad] = useState<number[]>([]);
   const [formulaDiscapacidad, setFormulaDiscapacidad] = useState(0);
-  const [validacionDosJuntasAlert, setValidacionDosJuntasAlert] = useState<
-    boolean[]
-  >([]);
+  const [validacionDosJuntasAlert, setValidacionDosJuntasAlert] = useState<boolean[]>([]);
+  const [isVisibleResult, setIsVisibleResult] = useState<boolean>(false);
 
   const handleValidacionDosJuntasAlert = (valor: boolean) => {
     setValidacionDosJuntasAlert([...validacionDosJuntasAlert, valor]);
   };
   const isTwo = validacionDosJuntasAlert.filter((b) => b === true);
+
   const handleFormulaDiscapacidad = () => {
     if (personName.length === 0) {
       setTotalDiscapacidad([]);
@@ -98,8 +98,35 @@ function App() {
 
   const isValide = personName.length <= 3;
   useEffect(() => {
-    handleFormulaDiscapacidad();
+    if(totalDiscapacidad.length > 0){
+      handleFormulaDiscapacidad();
+      setIsVisibleResult(false)
+    }
   }, [totalDiscapacidad]);
+
+  useEffect(() => {
+    console.log(formulaDiscapacidad)
+    if(formulaDiscapacidad !== 0){
+      setIsVisibleResult(true);
+    }
+  }, [formulaDiscapacidad])
+
+  useEffect(() => {
+    if(formulaDiscapacidad !== 0){
+      // resetFormulaDiscapacidad()
+    }
+  }, [dataEnfermadadApi])
+
+  const resetFormulaDiscapacidad = () =>{
+    setIsVisibleResult(false)
+    setFormulaDiscapacidad(0)
+    setTotalDiscapacidad([])
+    setPersonName([])
+    setValidacionDosJuntasAlert([])
+    setDataEnfermadadApi([])
+  }
+  
+  
 
   return (
     <div className="containerApp">
@@ -113,17 +140,13 @@ function App() {
 
       {isTwo.length < 2 && formulaDiscapacidad > 0 && personName.length < 4 && (
         <Box className="result">
-          <p className="parrafo__result">{formulaDiscapacidad}%</p>
-
-          <button
-            disabled
-            className="button__result"
-            onClick={handleFormulaDiscapacidad}
-          >
-            Tu resultado
-          </button>
+          <p className="parrafo__result">Tu porcentaje de discapacidad es: <span className="porcentaje">{formulaDiscapacidad.toFixed(2)}%</span></p>
+          <Button variant="text" onClick={resetFormulaDiscapacidad}>
+          Restablecer
+        </Button>
         </Box>
       )}
+
       {isTwo.length >= 2 && (
         <Alert severity="warning" className="alerta-container">
           <div className="alerta">
@@ -134,33 +157,25 @@ function App() {
           </div>
         </Alert>
       )}
-      <>
-        <Swiper
-          allowTouchMove={false}
-          navigation={true}
-          modules={[Navigation]}
-          className="mySwiper"
-          slidesPerView={1}
-          preventClicks={false}
-          preventClicksPropagation={false}
-        >
-          {isValide &&
-            dataEnfermadadApi.map((enfermedad) => (
-              <SwiperSlide>
-                <div className="slider__item">
-                  <FormUser
-                    handleValidacionDosJuntasAlert={
-                      handleValidacionDosJuntasAlert
-                    }
-                    key={enfermedad.indice}
-                    enfermedad={enfermedad}
-                    handleFuncTotal={handleTotalDiscapacidad}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </>
+      {
+        !isVisibleResult && 
+        <>
+          <article className="forms__simulator">
+            {isValide &&
+              dataEnfermadadApi.map((enfermedad) => (
+                    <FormUser
+                      handleValidacionDosJuntasAlert={
+                        handleValidacionDosJuntasAlert
+                      }
+                      key={enfermedad.indice}
+                      enfermedad={enfermedad}
+                      handleFuncTotal={handleTotalDiscapacidad}
+                    />
+              ))}
+          </article>
+        </>
+
+      }
     </div>
   );
 }

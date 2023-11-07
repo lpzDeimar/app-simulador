@@ -163,7 +163,7 @@ const FormUser: React.FC<formType> = ({
   };
   return (
     <article className="form">
-      <h4 className="title">{enfermedad.descripcion}</h4>
+      <h4 className="title">{enfermedad.descripcion} <span>({enfermedad.indice})</span></h4>
       {!disable ? (
         <Box sx={{ minWidth: 120 }} className={"content"}>
           <SelectInput
