@@ -1,4 +1,3 @@
-import { Swiper, SwiperSlide } from "swiper/react";
 import { entidadFusionada } from "@/api/enfemedades";
 import { Disclaimer } from "@/components/Disclaimer";
 import { FormUser } from "@/components/FormUser";
@@ -12,8 +11,6 @@ import "./App.css";
 
 import "swiper/css";
 import "swiper/css/navigation";
-
-import { Navigation } from "swiper/modules";
 
 const initialValidations = {
   personName: [""],
