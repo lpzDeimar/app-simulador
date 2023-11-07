@@ -24,7 +24,9 @@ function App() {
   const [validations, setValidations] = useState(initialValidations);
   const [totalDiscapacidad, setTotalDiscapacidad] = useState<number[]>([]);
   const [formulaDiscapacidad, setFormulaDiscapacidad] = useState(0);
-  const [validacionDosJuntasAlert, setValidacionDosJuntasAlert] = useState<boolean[]>([]);
+  const [validacionDosJuntasAlert, setValidacionDosJuntasAlert] = useState<
+    boolean[]
+  >([]);
   const [isVisibleResult, setIsVisibleResult] = useState<boolean>(false);
 
   const handleValidacionDosJuntasAlert = (valor: boolean) => {
@@ -97,36 +99,35 @@ function App() {
   };
 
   const isValide = personName.length <= 3;
+
   useEffect(() => {
-    if(totalDiscapacidad.length > 0){
+    if (totalDiscapacidad.length > 0) {
       handleFormulaDiscapacidad();
-      setIsVisibleResult(false)
+      setIsVisibleResult(false);
     }
   }, [totalDiscapacidad]);
 
   useEffect(() => {
-    console.log(formulaDiscapacidad)
-    if(formulaDiscapacidad !== 0){
+    console.log(formulaDiscapacidad);
+    if (formulaDiscapacidad !== 0) {
       setIsVisibleResult(true);
     }
-  }, [formulaDiscapacidad])
+  }, [formulaDiscapacidad]);
 
   useEffect(() => {
-    if(formulaDiscapacidad !== 0){
+    if (formulaDiscapacidad !== 0) {
       // resetFormulaDiscapacidad()
     }
-  }, [dataEnfermadadApi])
+  }, [dataEnfermadadApi]);
 
-  const resetFormulaDiscapacidad = () =>{
-    setIsVisibleResult(false)
-    setFormulaDiscapacidad(0)
-    setTotalDiscapacidad([])
-    setPersonName([])
-    setValidacionDosJuntasAlert([])
-    setDataEnfermadadApi([])
-  }
-  
-  
+  const resetFormulaDiscapacidad = () => {
+    setIsVisibleResult(false);
+    setFormulaDiscapacidad(0);
+    setTotalDiscapacidad([]);
+    setPersonName([]);
+    setValidacionDosJuntasAlert([]);
+    setDataEnfermadadApi([]);
+  };
 
   return (
     <div className="containerApp">
@@ -140,10 +141,15 @@ function App() {
 
       {isTwo.length < 2 && formulaDiscapacidad > 0 && personName.length < 4 && (
         <Box className="result">
-          <p className="parrafo__result">Tu porcentaje de discapacidad es: <span className="porcentaje">{formulaDiscapacidad.toFixed(2)}%</span></p>
+          <p className="parrafo__result">
+            Tu porcentaje de discapacidad es:{" "}
+            <span className="porcentaje">
+              {formulaDiscapacidad.toFixed(2)}%
+            </span>
+          </p>
           <Button variant="text" onClick={resetFormulaDiscapacidad}>
-          Restablecer
-        </Button>
+            Restablecer
+          </Button>
         </Box>
       )}
 
@@ -157,25 +163,23 @@ function App() {
           </div>
         </Alert>
       )}
-      {
-        !isVisibleResult && 
+      {!isVisibleResult && (
         <>
           <article className="forms__simulator">
             {isValide &&
               dataEnfermadadApi.map((enfermedad) => (
-                    <FormUser
-                      handleValidacionDosJuntasAlert={
-                        handleValidacionDosJuntasAlert
-                      }
-                      key={enfermedad.indice}
-                      enfermedad={enfermedad}
-                      handleFuncTotal={handleTotalDiscapacidad}
-                    />
+                <FormUser
+                  handleValidacionDosJuntasAlert={
+                    handleValidacionDosJuntasAlert
+                  }
+                  key={enfermedad.indice}
+                  enfermedad={enfermedad}
+                  handleFuncTotal={handleTotalDiscapacidad}
+                />
               ))}
           </article>
         </>
-
-      }
+      )}
     </div>
   );
 }
