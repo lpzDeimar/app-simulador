@@ -1,19 +1,19 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 import { entidadFusionada } from "@/api/enfemedades";
 import { Disclaimer } from "@/components/Disclaimer";
 import { FormUser } from "@/components/FormUser";
 import MultipleSelectChip from "@/components/MultipleSelect/MultipleSelect";
-import { Error } from "@/models/InfoAlert";
+import { Contact, Error } from "@/models/InfoAlert";
 import { dataApi } from "@/models/dataApi";
-import { Box, SelectChangeEvent } from "@mui/material";
+import { Alert, Box, SelectChangeEvent } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import "./App.css";
 
-import 'swiper/css';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/navigation";
 
-import { Navigation } from 'swiper/modules';
+import { Navigation } from "swiper/modules";
 
 const initialValidations = {
   personName: [""],
@@ -24,8 +24,14 @@ function App() {
   const [validations, setValidations] = useState(initialValidations);
   const [totalDiscapacidad, setTotalDiscapacidad] = useState<number[]>([]);
   const [formulaDiscapacidad, setFormulaDiscapacidad] = useState(0);
+  const [validacionDosJuntasAlert, setValidacionDosJuntasAlert] = useState<
+    boolean[]
+  >([]);
 
-
+  const handleValidacionDosJuntasAlert = (valor: boolean) => {
+    setValidacionDosJuntasAlert([...validacionDosJuntasAlert, valor]);
+  };
+  const isTwo = validacionDosJuntasAlert.filter((b) => b === true);
   const handleFormulaDiscapacidad = () => {
     if (personName.length === 0) {
       setTotalDiscapacidad([]);
@@ -105,7 +111,7 @@ function App() {
         blur={handleBlurMultiple}
       />
 
-      {formulaDiscapacidad > 0 && personName.length < 4 && (
+      {isTwo.length < 2 && formulaDiscapacidad > 0 && personName.length < 4 && (
         <Box className="result">
           <p className="parrafo__result">{formulaDiscapacidad}%</p>
 
@@ -118,24 +124,29 @@ function App() {
           </button>
         </Box>
       )}
+      {isTwo.length >= 2 && <Alert severity="warning">{Contact.ABOGADO}</Alert>}
       <>
-        <Swiper 
-          allowTouchMove={false} 
+        <Swiper
+          allowTouchMove={false}
           navigation={true}
-          modules={[Navigation]} 
-          className="mySwiper" 
+          modules={[Navigation]}
+          className="mySwiper"
           slidesPerView={1}
           preventClicks={false}
-          preventClicksPropagation={false}>
+          preventClicksPropagation={false}
+        >
           {isValide &&
             dataEnfermadadApi.map((enfermedad) => (
               <SwiperSlide>
-                <div className='slider__item'>
-                <FormUser
-                  key={enfermedad.indice}
-                  enfermedad={enfermedad}
-                  handleFuncTotal={handleTotalDiscapacidad}
-                />
+                <div className="slider__item">
+                  <FormUser
+                    handleValidacionDosJuntasAlert={
+                      handleValidacionDosJuntasAlert
+                    }
+                    key={enfermedad.indice}
+                    enfermedad={enfermedad}
+                    handleFuncTotal={handleTotalDiscapacidad}
+                  />
                 </div>
               </SwiperSlide>
             ))}

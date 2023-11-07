@@ -17,6 +17,7 @@ import "./FormUser.scss";
 type formType = {
   enfermedad: dataApi;
   handleFuncTotal: (valor: number, initial?: boolean) => void;
+  handleValidacionDosJuntasAlert: (valor: boolean) => void;
 };
 
 const initialValidations = {
@@ -26,7 +27,11 @@ const initialValidations = {
   porcentaje: "",
 };
 
-const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
+const FormUser: React.FC<formType> = ({
+  enfermedad,
+  handleFuncTotal,
+  handleValidacionDosJuntasAlert,
+}) => {
   const [age, setAge] = React.useState("");
   const handleAge = (event: SelectChangeEvent) => {
     validateAge();
@@ -101,11 +106,15 @@ const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
   };
 
   const handleDisable = () => {
+    let valorBooleanJuntas = false;
+
     if (juntas === juntasTribunales[0] && porcentaje.length > 1) {
       const valorPorcentaje = porcentaje.split("%");
       const valorPorcentajeDiscapacidad = Number.parseInt(valorPorcentaje[0]);
+      valorBooleanJuntas = true;
       handleValorDicapacidad(valorPorcentajeDiscapacidad);
       handleFuncTotal(valorPorcentajeDiscapacidad);
+      handleValidacionDosJuntasAlert(valorBooleanJuntas);
       setDisable(true);
     } else {
       validateJuntas();
@@ -115,6 +124,7 @@ const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
       let indiceDiscapacidad: number = 0;
       const pocisionTablaEdad = edades.indexOf(age);
       const tablaPocisionIndicada = tabla[pocisionTablaEdad];
+      valorBooleanJuntas = false;
 
       if (enfermedad.indiceLesion.length > 2) {
         if (gradoL === gradoLesion[0]) {
@@ -138,6 +148,7 @@ const FormUser: React.FC<formType> = ({ enfermedad, handleFuncTotal }) => {
       setDisable(true);
       handleValorDicapacidad(tablaPocisionIndicada[indiceDiscapacidad]);
       handleFuncTotal(tablaPocisionIndicada[indiceDiscapacidad]);
+      handleValidacionDosJuntasAlert(valorBooleanJuntas);
     } else {
       validateJuntas();
       validateAge();
