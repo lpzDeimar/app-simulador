@@ -22,7 +22,7 @@ const MenuProps = {
 };
 
 const names = Array.from(entidadFusionada);
-console.log(names);
+
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
   return {
     fontWeight:

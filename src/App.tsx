@@ -36,18 +36,23 @@ function App() {
       setTotalDiscapacidad([]);
     } else if (personName.length === totalDiscapacidad.length) {
       let total = 0;
+
       if (totalDiscapacidad.length === 1) {
         total = totalDiscapacidad[0];
       }
+
       if (totalDiscapacidad.length === 2) {
-        total = ((100 - totalDiscapacidad[0]) * totalDiscapacidad[1]) / 100;
+        total = (100 - totalDiscapacidad[0]) * (totalDiscapacidad[1] / 100);
+        total += totalDiscapacidad[0];
       }
+
       if (totalDiscapacidad.length === 3) {
-        const a = totalDiscapacidad[2] / 100;
-        const b = 100 - totalDiscapacidad[0] + totalDiscapacidad[1];
-        total = b * a;
+        total =
+          100 -
+          (totalDiscapacidad[0] + totalDiscapacidad[1]) *
+            (totalDiscapacidad[2] / 100);
       }
-      console.log(totalDiscapacidad, total);
+      console.log(totalDiscapacidad, "  ", total);
       setFormulaDiscapacidad(total);
     }
   };
@@ -105,7 +110,6 @@ function App() {
   }, [totalDiscapacidad]);
 
   useEffect(() => {
-    console.log(formulaDiscapacidad);
     if (formulaDiscapacidad !== 0) {
       setIsVisibleResult(true);
     }

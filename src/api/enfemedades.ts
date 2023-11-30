@@ -595,6 +595,7 @@ for (let i = 0; i < codigos.length; i++) {
   });
 }
 const entidadFusionada = new Map([...entidad, ...entidad2]);
+
 entidadFusionada.forEach((l) => {
   if (!l.isDisable) {
     l.isDisable = false;
