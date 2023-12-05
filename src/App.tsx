@@ -86,7 +86,7 @@ function App() {
       setValidations((v) => {
         return { ...v, personName: [Error.PERSONNAMEVACIO] };
       });
-    } else if (personName.length > 3) {
+    } else if (personName.length > 2) {
       setValidations((v) => {
         return { ...v, personName: [Error.PERSONNAME] };
       });
@@ -123,7 +123,7 @@ function App() {
     setValidacionDosJuntasAlert([]);
     setDataEnfermadadApi([]);
   };
-
+  console.log(personName);
   return (
     <div className="containerApp">
       <Disclaimer />
@@ -134,7 +134,7 @@ function App() {
         blur={handleBlurMultiple}
       />
 
-      {isTwo.length < 2 && formulaDiscapacidad > 0 && personName.length < 4 && (
+      {isTwo.length < 2 && formulaDiscapacidad > 0 && personName.length < 3 && (
         <Box className="result">
           <p className="parrafo__result">
             Tu porcentaje de discapacidad es:{" "}
@@ -148,17 +148,18 @@ function App() {
         </Box>
       )}
 
-      {isTwo.length >= 2 && (
-        <Alert severity="warning" className="alerta-container">
-          <div className="alerta">
-            {Contact.ABOGADO}
-            <button>
-              Click aqui para contactar con un abogado de la firma
-            </button>
-          </div>
-        </Alert>
-      )}
-      {!isVisibleResult && (
+      {isTwo.length >= 2 ||
+        (personName.length > 2 && (
+          <Alert severity="warning" className="alerta-container">
+            <div className="alerta">
+              {Contact.ABOGADO}
+              <button>
+                Click aqui para contactar con un abogado de la firma
+              </button>
+            </div>
+          </Alert>
+        ))}
+      {(!isVisibleResult || personName.length <= 2) && (
         <>
           <article className="forms__simulator">
             {isValide &&

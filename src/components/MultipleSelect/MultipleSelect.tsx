@@ -60,7 +60,7 @@ export default function MultipleSelectChip({
       <article className="container__multiple__select">
         <FormControl className="multiple__select large__select">
           <InputLabel className="index" id="demo-simple">
-            "Seleccione la lesión o enfermedad (máximo 3)*"
+            Seleccione la lesión o enfermedad (máximo 2)*
           </InputLabel>
           <Select
             labelId="demo-multiple-chip-label"

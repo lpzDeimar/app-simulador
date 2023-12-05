@@ -4,7 +4,7 @@ export enum Error {
   GRADOL = "Error debe ingresar un grado de lesion o enfermedad",
   JUNTAS = "Error debe ingresar la cantidad de juntas/tribunales",
   PERSONNAMEVACIO = "Error debe ingresar la cantidad de lesiones/enfermedades",
-  PERSONNAME = "Error no puede elegir mas de 3 lesiones/enfermedades",
+  PERSONNAME = "Error no puede elegir mas de 2 lesiones/enfermedades",
   PORCENTAJE = "Error debe ingresar un porcentaje",
 }
 
