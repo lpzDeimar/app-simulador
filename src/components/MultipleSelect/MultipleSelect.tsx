@@ -43,7 +43,7 @@ export default function MultipleSelectChip({
 }: MultipleSelectChipProps) {
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(true);
-  const handleClose = (e) => {
+  const handleClose = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === undefined) setIsOpen(false);
   };
   const handleOpen = () => {
