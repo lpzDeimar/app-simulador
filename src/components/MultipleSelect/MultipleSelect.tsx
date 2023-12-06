@@ -1,7 +1,7 @@
 import { entidadFusionada } from "@/api/enfemedades";
 import "@/components/MultipleSelect/MultipleSelect.scss";
 import { Contact } from "@/models/InfoAlert";
-import { Alert, InputLabel } from "@mui/material";
+import { Alert, Dialog, DialogTitle, InputLabel } from "@mui/material";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import FormControl from "@mui/material/FormControl";
@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Theme, useTheme } from "@mui/material/styles";
-
+import { useEffect, useState } from "react";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -22,7 +22,6 @@ const MenuProps = {
 };
 
 const names = Array.from(entidadFusionada);
-
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
   return {
     fontWeight:
@@ -37,24 +36,41 @@ type MultipleSelectChipProps = {
   alert: string[];
   blur: () => void;
 };
+
 export default function MultipleSelectChip({
   estado,
   funcHandle,
 }: MultipleSelectChipProps) {
   const theme = useTheme();
+  const [isOpen, setIsOpen] = useState(true);
+  const handleClose = (e) => {
+    if (e.target.value === undefined) setIsOpen(false);
+  };
+  const handleOpen = () => {
+    setIsOpen(true);
+    return true;
+  };
+  useEffect(() => {
+    if (estado.length > 2) {
+      handleOpen();
+    }
+  }, [estado]);
 
   return (
     <>
-      {estado.length > 3 && (
+      {estado.length > 2 && (
         <>
-          <Alert severity="warning" className="alerta-container">
-            <div className="alerta">
-              {Contact.ABOGADO}
-              <button>
-                Click aqui para contactar con un abogado de la firma
-              </button>
-            </div>
-          </Alert>
+          <Dialog open={isOpen} onClose={handleClose}>
+            <DialogTitle>advertencia </DialogTitle>
+            <Alert severity="warning" className="alerta-container">
+              <div className="alerta">
+                {Contact.ABOGADO}
+                <button>
+                  Click aqui para contactar con un abogado de la firma
+                </button>
+              </div>
+            </Alert>
+          </Dialog>
         </>
       )}
       <article className="container__multiple__select">
