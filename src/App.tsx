@@ -12,9 +12,7 @@ import "./App.css";
 import "swiper/css";
 import "swiper/css/navigation";
 
-const initialValidations = {
-  personName: [""],
-};
+
 function App() {
   const [personName, setPersonName] = useState<string[]>([]);
   const [dataEnfermadadApi, setDataEnfermadadApi] = useState<dataApi[]>([]);
