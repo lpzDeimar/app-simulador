@@ -12,7 +12,6 @@ const names = Array.from(entidadFusionada);
 type MultipleSelectChipProps = {
   estado: string[];
   funcHandle: (values: any) => void;
-  alert: string[];
 };
 
 export default function MultipleSelectChip({estado,funcHandle}: MultipleSelectChipProps) {

@@ -18,7 +18,6 @@ const initialValidations = {
 function App() {
   const [personName, setPersonName] = useState<string[]>([]);
   const [dataEnfermadadApi, setDataEnfermadadApi] = useState<dataApi[]>([]);
-  const [validations, setValidations] = useState(initialValidations);
   const [totalDiscapacidad, setTotalDiscapacidad] = useState<number[]>([]);
   const [formulaDiscapacidad, setFormulaDiscapacidad] = useState(0);
   const [validacionDosJuntasAlert, setValidacionDosJuntasAlert] = useState<
@@ -102,7 +101,6 @@ function App() {
       <MultipleSelectChip
         estado={personName}
         funcHandle={handleChangeMultiple}
-        alert={validations.personName}
       />
 
       {isTwo.length <= 2 &&
