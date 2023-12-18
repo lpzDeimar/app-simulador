@@ -1,47 +1,21 @@
+import { useEffect, useState } from "react";
 import { entidadFusionada } from "@/api/enfemedades";
 import "@/components/MultipleSelect/MultipleSelect.scss";
 import { Contact } from "@/models/InfoAlert";
-import { Alert, Dialog, DialogTitle, InputLabel } from "@mui/material";
-import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
-import FormControl from "@mui/material/FormControl";
-import MenuItem from "@mui/material/MenuItem";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { Theme, useTheme } from "@mui/material/styles";
-import { useEffect, useState } from "react";
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+import { Alert, Dialog, DialogTitle } from "@mui/material";
+
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated';
+const animatedComponents = makeAnimated();
 
 const names = Array.from(entidadFusionada);
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
 type MultipleSelectChipProps = {
   estado: string[];
-  funcHandle: (event: SelectChangeEvent<string[]>) => void;
+  funcHandle: (values: any) => void;
   alert: string[];
-  blur: () => void;
 };
 
-export default function MultipleSelectChip({
-  estado,
-  funcHandle,
-}: MultipleSelectChipProps) {
-  const theme = useTheme();
+export default function MultipleSelectChip({estado,funcHandle}: MultipleSelectChipProps) {
   const [isOpen, setIsOpen] = useState(true);
   const handleClose = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === undefined) setIsOpen(false);
@@ -55,6 +29,32 @@ export default function MultipleSelectChip({
       handleOpen();
     }
   }, [estado]);
+
+  const onSubmit = (event: any) => {
+
+    let arrayValues: any[] = [];
+    event.preventDefault();
+    const values = event.target.multiSelect.value;
+
+    if(!(values === '')){
+      funcHandle([values]);
+    }else{
+      const selectedOptions = Array.from(event.target.multiSelect)
+  
+      if(selectedOptions.length >= 3 ){
+        setIsOpen(false);
+      }
+  
+      selectedOptions.forEach((selectChip: any) => {
+        arrayValues.push(selectChip.value)
+      })
+      funcHandle(arrayValues);
+      arrayValues = []
+    }
+
+  }
+
+  const optionsMultipleSelect = names.map((disability: any) => ({ value: disability[1].indice, label: disability[1].descripcion }))
 
   return (
     <>
@@ -73,41 +73,17 @@ export default function MultipleSelectChip({
           </Dialog>
         </>
       )}
-      <article className="container__multiple__select">
-        <FormControl className="multiple__select large__select">
-          <InputLabel className="index" id="demo-simple">
-            Seleccione la lesión o enfermedad (máximo 2)*
-          </InputLabel>
+      <form onSubmit={onSubmit} className="container__multiple__select">
           <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
-            multiple
-            value={estado}
-            onChange={funcHandle}
-            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
-            MenuProps={MenuProps}
-          >
-            {names.map((name) => (
-              <MenuItem
-                key={name[0]}
-                id={name[0]}
-                value={name[0]}
-                disabled={name[1].isDisable}
-                style={getStyles(name[1].descripcion, estado, theme)}
-              >
-                {name[1].descripcion}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </article>
+            closeMenuOnSelect={false}
+            components={animatedComponents}
+            isMulti
+            className="select-container"
+            name="multiSelect"
+            options={optionsMultipleSelect}
+          />
+          <button>ENVIAR</button>
+      </form>
     </>
   );
 }

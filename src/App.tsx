@@ -2,9 +2,9 @@ import { entidadFusionada } from "@/api/enfemedades";
 import { Disclaimer } from "@/components/Disclaimer";
 import { FormUser } from "@/components/FormUser";
 import MultipleSelectChip from "@/components/MultipleSelect/MultipleSelect";
-import { Contact, Error } from "@/models/InfoAlert";
+import { Contact } from "@/models/InfoAlert";
 import { dataApi } from "@/models/dataApi";
-import { Alert, Box, Button, SelectChangeEvent } from "@mui/material";
+import { Alert, Box, Button} from "@mui/material";
 import { useEffect, useState } from "react";
 
 import "./App.css";
@@ -52,7 +52,7 @@ function App() {
           (totalDiscapacidad[0] + totalDiscapacidad[1]) *
             (totalDiscapacidad[2] / 100);
       }
-      console.log(totalDiscapacidad, "  ", total);
+
       setFormulaDiscapacidad(total);
     }
   };
@@ -66,38 +66,10 @@ function App() {
     }
   };
 
-  const handleChangeMultiple = (
-    event: SelectChangeEvent<typeof personName>
-  ) => {
-    const {
-      target: { value },
-    } = event;
-    const valorEnfermedad =
-      typeof value === "string" ? value.split(",") : value;
-
-    const entidad = valorEnfermedad.map((a) => entidadFusionada.get(a));
+  const handleChangeMultiple = (value: any[]) => {
+    const entidad = value.map((a: any) => entidadFusionada.get(a));
     setDataEnfermadadApi([...entidad]);
-
-    setPersonName(typeof value === "string" ? value.split(",") : value);
-  };
-
-  const handleBlurMultiple = () => {
-    if (personName.length === 0) {
-      setValidations((v) => {
-        return { ...v, personName: [Error.PERSONNAMEVACIO] };
-      });
-    } else if (personName.length > 2) {
-      setValidations((v) => {
-        return { ...v, personName: [Error.PERSONNAME] };
-      });
-    } else if (
-      validations.personName[0] === Error.PERSONNAME ||
-      personName.length <= 2
-    ) {
-      setValidations((v) => {
-        return { ...v, personName: personName };
-      });
-    }
+    setPersonName( value);
   };
 
   const isValide = personName.length <= 2;
@@ -123,7 +95,7 @@ function App() {
     setValidacionDosJuntasAlert([]);
     setDataEnfermadadApi([]);
   };
-  console.log(personName);
+
   return (
     <div className="containerApp">
       <Disclaimer />
@@ -131,7 +103,6 @@ function App() {
         estado={personName}
         funcHandle={handleChangeMultiple}
         alert={validations.personName}
-        blur={handleBlurMultiple}
       />
 
       {isTwo.length <= 2 &&
